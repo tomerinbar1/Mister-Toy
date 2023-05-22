@@ -1,0 +1,15 @@
+.toy-preview{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+    width: 200px;
+    height: 300px;
+}
+
+.toy-preview img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
