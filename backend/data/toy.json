@@ -1,0 +1,35 @@
+[
+    {
+      "_id": "t101",
+      "name": "Buzz LightYear",
+      "imgUrl": "https://m.media-amazon.com/images/I/71rL5zB1UZL._AC_SL1500_.jpg",
+      "price": 18.99,
+      "createdAt": 1551133930594,
+      "inStock": true
+    },
+    {
+      "_id": "t102",
+      "name": "Woody",
+      "imgUrl": "https://m.media-amazon.com/images/I/61Akyuw5zIL._AC_SL1500_.jpg",
+      "price": 15.99,
+      "createdAt": 1551133930595,
+      "inStock": true
+    },
+    {
+      "_id": "t103",
+      "name": "Jessie",
+      "imgUrl": "https://m.media-amazon.com/images/I/61rz0sdxEML._AC_SL1500_.jpg",
+      "price": 17.99,
+      "createdAt": 1551133930596,
+      "inStock": false
+    },
+    {
+      "_id": "t104",
+      "name": "Rex",
+      "imgUrl": "https://m.media-amazon.com/images/I/61OIdq73gNL._AC_SL1200_.jpg",
+      "price": 12.99,
+      "createdAt": 1551133930597,
+      "inStock": true
+    }
+  ]
+  

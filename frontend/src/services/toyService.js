@@ -1,8 +1,4 @@
 import { storageService } from './async-storage.service.js'
-// import buzz from '../assets/img/toys/buzz.jpg'
-// import woody from '../assets/img/toys/woody.jpg'
-// import jessie from '../assets/img/toys/jessie.jpg'
-// import rex from '../assets/img/toys/rex.jpg'
 
 const STORAGE_KEY = 'toysDB'
 
@@ -68,10 +64,6 @@ function getDefaultFilter() {
 }
 
 function _createToys() {
-  // storageService.get(STORAGE_KEY, toys => {
-  //   if (!toys || !toys.length) {
-  //     toys = _getToys()
-  //     storageService.post(STORAGE_KEY, toys)
 
   const toys = [
     _createToy(
