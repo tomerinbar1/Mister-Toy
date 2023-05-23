@@ -1,3 +1,5 @@
+import { MultipleSelectCheckmarks } from './ToyLabels'
+
 export const ToyFilter = ({ onSetFilter, filterBy, onSetSort }) => {
   const handleChange = ({ target }) => {
     let field = target.name
@@ -11,9 +13,13 @@ export const ToyFilter = ({ onSetFilter, filterBy, onSetSort }) => {
       } else if (value === 'false') {
         value = false
       }
-    } else if (field === 'name') {
+    }
+
+    if (field === undefined) {
+      field = 'labels'
       value = target.value
     }
+
     onSetFilter({ [field]: value })
   }
 
@@ -23,6 +29,7 @@ export const ToyFilter = ({ onSetFilter, filterBy, onSetSort }) => {
 
   return (
     <form className="toy-filter flex justify-center">
+      <MultipleSelectCheckmarks handleChange={handleChange} />
       <label htmlFor="by-name">By Name:</label>
       <input
         type="text"

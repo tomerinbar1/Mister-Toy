@@ -14,6 +14,7 @@ const corsOptions = {
         'http://127.0.0.1:3000',
         'http://localhost:3000'
     ],
+    credentials: true
 }
 app.use(cors(corsOptions))
 app.use(express.static('public'))
@@ -99,9 +100,9 @@ app.delete('/api/toy/:toyId', (req, res) => {
         })
 })
 
-app.get('/**', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'))
-})
+// app.get('/**', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'public', 'index.html'))
+// })
 
 
 // Listen will always be the last line in our server!

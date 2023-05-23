@@ -6,8 +6,6 @@ function query(filterBy = {}) {
 
     const { txt, status, maxPrice } = filterBy
 
-    console.log(filterBy)
-
     if (txt) {
         const regExp = new RegExp(txt, 'i')
         toysToDisplay = toys.filter(toy => regExp.test(toy.name))

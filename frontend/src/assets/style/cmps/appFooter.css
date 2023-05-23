@@ -1,5 +1,7 @@
 .app-footer{
     display: flex;
+    position: absolute;
+    width: 100%;
     justify-content: center;
     align-items: center;
     bottom: 0;

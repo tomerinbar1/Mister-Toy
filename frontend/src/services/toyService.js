@@ -1,8 +1,9 @@
-import { storageService } from './async-storage.service.js'
+// import { storageService } from './async-storage.service.js'
+import { httpService } from './http.service.js'
 
 const STORAGE_KEY = 'toysDB'
-
-_createToys()
+const BASE_URL = 'toy/'
+// _createToys()
 
 export const toyService = {
   getToys,
@@ -10,131 +11,57 @@ export const toyService = {
   remove,
   save,
   getEmptyToy,
-  getDefaultFilter,
-  getLabels,
   setSortBy,
 }
 
 function getToys(filterBy = {}) {
-  return storageService.query(STORAGE_KEY).then(toys => {
+  // console.log('filterBy', filterBy)
+  return httpService.get(BASE_URL, filterBy).then(toys => {
     if (filterBy.name) {
       toys = toys.filter(toy =>
         toy.name.toLowerCase().includes(filterBy.name.toLowerCase())
       )
     }
+
     if (filterBy.inStock === true) {
       toys = toys.filter(toy => toy.inStock)
     } else if (filterBy.inStock === false) {
       toys = toys.filter(toy => !toy.inStock)
-    } else {
-      return toys
     }
+
+    if (filterBy.labels && filterBy.labels.length > 0) {
+      console.log('filterBy.labels', filterBy.labels);
+      toys = toys.filter(toy => {
+        // console.log('toy', toy);
+        return (
+          Array.isArray(toy.labels) &&
+          toy.labels.some(label => filterBy.labels.includes(label))
+        )
+      })
+    }
+
     return toys
   })
 }
 
 function getToyById(toyId) {
-  return storageService.get(STORAGE_KEY, toyId)
+  return httpService.get(BASE_URL + toyId)
 }
 
 function remove(toyId) {
-  return storageService.remove(STORAGE_KEY, toyId)
+  return httpService.delete(BASE_URL + toyId)
 }
 
 function save(toy) {
   if (toy._id) {
-    return storageService.put(STORAGE_KEY, toy)
+    return httpService.put(BASE_URL, toy)
   } else {
-    return storageService.post(STORAGE_KEY, toy)
+    return httpService.post(BASE_URL, toy)
   }
-}
-
-function getEmptyToy() {
-  return {
-    name: '',
-    price: 0,
-    labels: [],
-    createdAt: Date.now(),
-    inStock: true,
-  }
-}
-
-function getDefaultFilter() {
-  return {}
-}
-
-function _createToys() {
-
-  const toys = [
-    _createToy(
-      'p101',
-      'Buzz LightYear',
-      'https://m.media-amazon.com/images/I/71rL5zB1UZL._AC_SL1500_.jpg',
-      18.99,
-      ['hero', 'Battery Powered'],
-      1551133930594,
-      true
-    ),
-    _createToy(
-      'p102',
-      'Woody',
-      'https://m.media-amazon.com/images/I/61Akyuw5zIL._AC_SL1500_.jpg',
-      15.99,
-      ['cowboy', 'Pull-String'],
-      1551133930595,
-      true
-    ),
-    _createToy(
-      'p103',
-      'Jessie',
-      'https://m.media-amazon.com/images/I/61rz0sdxEML._AC_SL1500_.jpg',
-      17.99,
-      ['cowgirl', 'Battery Powered'],
-      1551133930596,
-      false
-    ),
-    _createToy(
-      'p104',
-      'Rex',
-      'https://m.media-amazon.com/images/I/61OIdq73gNL._AC_SL1200_.jpg',
-      12.99,
-      ['dinosaur', 'Battery Powered'],
-      1551133930597,
-      true
-    ),
-  ]
-  storageService.save(STORAGE_KEY, toys)
-}
-
-function _createToy(_id, name, imgUrl, price, labels, createdAt, inStock) {
-  const toy = {
-    _id,
-    name,
-    imgUrl,
-    price,
-    labels,
-    createdAt,
-    inStock,
-  }
-  return toy
-}
-
-const labels = [
-  'Battery Powered',
-  'here',
-  'dinosaur',
-  'Battery Powered',
-  'Pull-String',
-  'cowgirl',
-  'cowboy',
-]
-
-function getLabels() {
-  return labels
 }
 
 function setSortBy(sortBy) {
-  return storageService.query(STORAGE_KEY).then(toys => {
+  return httpService.get(BASE_URL, { sortBy }).then(toys => {
     if (sortBy === 'name') {
       toys.sort((a, b) => {
         return a.name.localeCompare(b.name)
@@ -151,3 +78,72 @@ function setSortBy(sortBy) {
     return toys
   })
 }
+
+function getEmptyToy() {
+  return {
+    name: '',
+    price: 0,
+    labels: [],
+    createdAt: Date.now(),
+    inStock: true,
+  }
+}
+
+// function getDefaultFilter() {
+//   return {}
+// }
+
+// function _createToys() {
+//   const toys = [
+//     _createToy(
+//       'p101',
+//       'Buzz LightYear',
+//       'https://m.media-amazon.com/images/I/71rL5zB1UZL._AC_SL1500_.jpg',
+//       18.99,
+//       ['hero', 'Battery Powered'],
+//       1551133930594,
+//       true
+//     ),
+//     _createToy(
+//       'p102',
+//       'Woody',
+//       'https://m.media-amazon.com/images/I/61Akyuw5zIL._AC_SL1500_.jpg',
+//       15.99,
+//       ['cowboy', 'Pull-String'],
+//       1551133930595,
+//       true
+//     ),
+//     _createToy(
+//       'p103',
+//       'Jessie',
+//       'https://m.media-amazon.com/images/I/61rz0sdxEML._AC_SL1500_.jpg',
+//       17.99,
+//       ['cowgirl', 'Battery Powered'],
+//       1551133930596,
+//       false
+//     ),
+//     _createToy(
+//       'p104',
+//       'Rex',
+//       'https://m.media-amazon.com/images/I/61OIdq73gNL._AC_SL1200_.jpg',
+//       12.99,
+//       ['dinosaur', 'Battery Powered'],
+//       1551133930597,
+//       true
+//     ),
+//   ]
+//   storageService.save(STORAGE_KEY, toys)
+// }
+
+// function _createToy(_id, name, imgUrl, price, labels, createdAt, inStock) {
+//   const toy = {
+//     _id,
+//     name,
+//     imgUrl,
+//     price,
+//     labels,
+//     createdAt,
+//     inStock,
+//   }
+//   return toy
+// }
