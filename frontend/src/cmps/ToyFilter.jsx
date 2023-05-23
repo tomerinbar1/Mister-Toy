@@ -1,6 +1,4 @@
-import {getLabels} from '../services/toyService.js'
-
-export const ToyFilter = ({ onSetFilter, filterBy }) => {
+export const ToyFilter = ({ onSetFilter, filterBy, onSetSort }) => {
   const handleChange = ({ target }) => {
     let field = target.name
     let value = target.value
@@ -13,15 +11,18 @@ export const ToyFilter = ({ onSetFilter, filterBy }) => {
       } else if (value === 'false') {
         value = false
       }
-    }
-    if (field === 'name') {
+    } else if (field === 'name') {
       value = target.value
     }
     onSetFilter({ [field]: value })
   }
 
+  const handleSort = ({ target }) => {
+    onSetSort(target.value)
+  }
+
   return (
-    <form className="toy-filter">
+    <form className="toy-filter flex justify-center">
       <label htmlFor="by-name">By Name:</label>
       <input
         type="text"
@@ -40,6 +41,17 @@ export const ToyFilter = ({ onSetFilter, filterBy }) => {
         <option value="all">All</option>
         <option value="true">In Stock</option>
         <option value="false">Out of Stock</option>
+      </select>
+      <label htmlFor="sort-by">Sort By:</label>
+      <select
+        id="sort-by"
+        name="sortBy"
+        value={filterBy.sortBy}
+        onChange={handleSort}
+      >
+        <option value="name">Name</option>
+        <option value="price">Price</option>
+        <option value="createdAt">Date</option>
       </select>
     </form>
   )

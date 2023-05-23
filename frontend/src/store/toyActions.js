@@ -27,3 +27,9 @@ export function saveToy(toy) {
           throw err
       })
 }
+
+export function sortToyBy(sortBy) {
+  return toyService.setSortBy(sortBy).then(toys => {
+    store.dispatch({ type: SET_TOYS, toys })
+  })
+}

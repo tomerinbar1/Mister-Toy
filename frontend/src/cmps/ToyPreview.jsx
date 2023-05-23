@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 
+
 export const ToyPreview = ({ toy, onRemoveToy }) => {
   return (
     <article className="toy-preview">

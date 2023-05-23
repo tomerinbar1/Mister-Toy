@@ -15,7 +15,8 @@ export const toyService = {
   save,
   getEmptyToy,
   getDefaultFilter,
-  getLabels
+  getLabels,
+  setSortBy,
 }
 
 function getToys(filterBy = {}) {
@@ -76,7 +77,7 @@ function _createToys() {
     _createToy(
       'p101',
       'Buzz LightYear',
-      '../assets/img/toys/buzz.jpg',
+      'https://m.media-amazon.com/images/I/71rL5zB1UZL._AC_SL1500_.jpg',
       18.99,
       ['hero', 'Battery Powered'],
       1551133930594,
@@ -85,7 +86,7 @@ function _createToys() {
     _createToy(
       'p102',
       'Woody',
-      '../assets/img/toys/woody.jpg',
+      'https://m.media-amazon.com/images/I/61Akyuw5zIL._AC_SL1500_.jpg',
       15.99,
       ['cowboy', 'Pull-String'],
       1551133930595,
@@ -94,7 +95,7 @@ function _createToys() {
     _createToy(
       'p103',
       'Jessie',
-      '../assets/img/toys/jessie.jpg',
+      'https://m.media-amazon.com/images/I/61rz0sdxEML._AC_SL1500_.jpg',
       17.99,
       ['cowgirl', 'Battery Powered'],
       1551133930596,
@@ -103,7 +104,7 @@ function _createToys() {
     _createToy(
       'p104',
       'Rex',
-      '../assets/img/toys/rex.jpg',
+      'https://m.media-amazon.com/images/I/61OIdq73gNL._AC_SL1200_.jpg',
       12.99,
       ['dinosaur', 'Battery Powered'],
       1551133930597,
@@ -138,4 +139,23 @@ const labels = [
 
 function getLabels() {
   return labels
+}
+
+function setSortBy(sortBy) {
+  return storageService.query(STORAGE_KEY).then(toys => {
+    if (sortBy === 'name') {
+      toys.sort((a, b) => {
+        return a.name.localeCompare(b.name)
+      })
+    } else if (sortBy === 'price') {
+      toys.sort((a, b) => {
+        return a.price - b.price
+      })
+    } else if (sortBy === 'createdAt') {
+      toys.sort((a, b) => {
+        return a.createdAt - b.createdAt
+      })
+    }
+    return toys
+  })
 }
