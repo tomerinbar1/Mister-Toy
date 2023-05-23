@@ -9,6 +9,7 @@ import { ToyIndex } from './pages/ToyIndex'
 import { AppHeader } from './cmps/AppHeader'
 import { ToyDetails } from './pages/ToyDetails'
 import { ToyEdit } from './pages/ToyEdit'
+import { AppFooter } from './cmps/AppFooter'
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
               <Route element={<ToyEdit />} path="/toy/edit/:toyId" />
             </Routes>
           </main>
-          {/* <AppFooter /> */}
+          <AppFooter />
         </section>
       </Router>
     </Provider>

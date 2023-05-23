@@ -1,18 +1,20 @@
+import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { loadToys, removeToy } from '../store/toyActions'
-import { useEffect } from 'react'
 import { ToyList } from '../cmps/ToyList'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { toyService } from '../services/toyService'
 import { saveToy } from '../store/toyActions'
 import { Link } from 'react-router-dom'
+import { ToyFilter } from '../cmps/ToyFilter'
 
 export const ToyIndex = () => {
   const toys = useSelector(storeState => storeState.toyModule.toys)
+  const [filterBy, setFilterBy] = useState({ name: '', inStock: 'all' })
 
   useEffect(() => {
-    loadToys()
-  }, [])
+    loadToys(filterBy)
+  }, [filterBy])
 
   const onRemoveToy = toyId => {
     removeToy(toyId)
@@ -38,10 +40,15 @@ export const ToyIndex = () => {
       })
   }
 
+  function onSetFilter(filterBy) {
+    setFilterBy(prevFilterBy => ({ ...prevFilterBy, ...filterBy }))
+  }
+
   return (
     <div>
       <h1>ToyIndex</h1>
       <Link to="/toy/edit">Add Toy</Link>
+      <ToyFilter onSetFilter={onSetFilter} filterBy={filterBy} />
       <ToyList toys={toys} onRemoveToy={onRemoveToy} onEditToy={onEditToy} />
     </div>
   )

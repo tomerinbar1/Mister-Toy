@@ -1,4 +1,3 @@
-
 import { storageService } from './async-storage.service.js'
 // import buzz from '../assets/img/toys/buzz.jpg'
 // import woody from '../assets/img/toys/woody.jpg'
@@ -6,16 +5,6 @@ import { storageService } from './async-storage.service.js'
 // import rex from '../assets/img/toys/rex.jpg'
 
 const STORAGE_KEY = 'toysDB'
-const labels = [
-  'On wheels',
-  'Box game',
-  'Art',
-  'Baby',
-  'Doll',
-  'Puzzle',
-  'Outdoor',
-  'Battery Powered',
-]
 
 _createToys()
 
@@ -26,18 +15,23 @@ export const toyService = {
   save,
   getEmptyToy,
   getDefaultFilter,
+  getLabels
 }
 
 function getToys(filterBy = {}) {
   return storageService.query(STORAGE_KEY).then(toys => {
-    // if (filterBy.title) {
-    //   const regExp = new RegExp(filterBy.title, 'i')
-    //   toys = toys.filter(toy => regExp.test(toy.title))
-    // }
-
-    // if (filterBy.maxPrice) {
-    //   toys = toys.filter(toy => toy.listPrice.amount >= filterBy.maxPrice)
-    // }
+    if (filterBy.name) {
+      toys = toys.filter(toy =>
+        toy.name.toLowerCase().includes(filterBy.name.toLowerCase())
+      )
+    }
+    if (filterBy.inStock === true) {
+      toys = toys.filter(toy => toy.inStock)
+    } else if (filterBy.inStock === false) {
+      toys = toys.filter(toy => !toy.inStock)
+    } else {
+      return toys
+    }
     return toys
   })
 }
@@ -77,12 +71,12 @@ function _createToys() {
   //   if (!toys || !toys.length) {
   //     toys = _getToys()
   //     storageService.post(STORAGE_KEY, toys)
- 
+
   const toys = [
     _createToy(
       'p101',
       'Buzz LightYear',
-      // `${buzz}`,
+      '../assets/img/toys/buzz.jpg',
       18.99,
       ['hero', 'Battery Powered'],
       1551133930594,
@@ -91,7 +85,7 @@ function _createToys() {
     _createToy(
       'p102',
       'Woody',
-      // `${woody}`,
+      '../assets/img/toys/woody.jpg',
       15.99,
       ['cowboy', 'Pull-String'],
       1551133930595,
@@ -100,7 +94,7 @@ function _createToys() {
     _createToy(
       'p103',
       'Jessie',
-      // `${jessie}`,
+      '../assets/img/toys/jessie.jpg',
       17.99,
       ['cowgirl', 'Battery Powered'],
       1551133930596,
@@ -109,7 +103,7 @@ function _createToys() {
     _createToy(
       'p104',
       'Rex',
-      // `${rex}`,
+      '../assets/img/toys/rex.jpg',
       12.99,
       ['dinosaur', 'Battery Powered'],
       1551133930597,
@@ -130,4 +124,18 @@ function _createToy(_id, name, imgUrl, price, labels, createdAt, inStock) {
     inStock,
   }
   return toy
+}
+
+const labels = [
+  'Battery Powered',
+  'here',
+  'dinosaur',
+  'Battery Powered',
+  'Pull-String',
+  'cowgirl',
+  'cowboy',
+]
+
+function getLabels() {
+  return labels
 }
