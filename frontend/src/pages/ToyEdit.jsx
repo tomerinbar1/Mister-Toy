@@ -1,7 +1,7 @@
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { saveToy } from '../store/toyActions.js'
 import { toyService } from '../services/toyService.js'
-
+import { Formik, Field, Form } from 'formik'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -44,32 +44,34 @@ export function ToyEdit() {
   return (
     <section className="toy-edit-container">
       <h2>Update Toy</h2>
+      <Formik
+        initialValues={{
+          Name: '',
+          Price: 0,
+        }}
+      >
+        <Form onSubmit={onSaveToy}>
+          <label htmlFor="name">Toy Name:</label>
+          <Field
+            id="name"
+            name="name"
+            onChange={handleChange}
+            value={name}
+            placeholder="Enter new Toy name"
+          />
 
-      <form className="toy-edit-inputs" onSubmit={onSaveToy}>
-        <label htmlFor="name">Name:</label>
-        <input
-          required
-          onChange={handleChange}
-          value={name}
-          type="text"
-          name="name"
-          id="name"
-          placeholder="Enter new name"
-        />
+          <label htmlFor="price"> Toy Price:</label>
+          <Field
+            id="price"
+            name="price"
+            onChange={handleChange}
+            value={price}
+            placeholder="Enter toy price"
+          />
 
-        <label htmlFor="price">Price:</label>
-        <input
-          required
-          onChange={handleChange}
-          value={price}
-          type="number"
-          name="price"
-          id="price"
-          placeholder="Enter new price"
-        />
-
-        <button> Save </button>
-      </form>
+          <button type="submit">Save</button>
+        </Form>
+      </Formik>
 
       <button onClick={() => navigate('/toy')}> Back </button>
     </section>
