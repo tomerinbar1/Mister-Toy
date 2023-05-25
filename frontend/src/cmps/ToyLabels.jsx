@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
@@ -21,37 +21,18 @@ const MenuProps = {
 
 export function MultipleSelectCheckmarks({ handleChange }) {
   const [personName, setPersonName] = useState([])
-  const [combinedArray, setCombinedArray] = useState([])
 
-  useEffect(() => {
-    fetchCombinedArray()
-  }, [])
-
-  const fetchCombinedArray = async () => {
-    try {
-      const toys = await toyService.getToys()
-      const allLabels = toys.map(toy => toy.labels)
-      const combinedLabels = [].concat(...allLabels)
-      const transformedArray = combinedLabels
-        .map(arrayString => arrayString.slice(1, -1))
-        .flatMap(arrayString => arrayString.split(', '))
-        .map(element => element.replace(/'/g, ''))
-      const uniqueArray = [...new Set(transformedArray)]
-      setCombinedArray(uniqueArray)
-    } catch (error) {
-      console.error('An error occurred:', error)
-    }
-  }
+  const labels = toyService.getLabels()
 
   const handleLabel = event => {
     const {
       target: { value },
     } = event
-    setPersonName(typeof value === 'string' ? value.split(',') : value)
+    setPersonName(value)
     handleChange(event)
   }
 
-  if (!combinedArray) return <div>Loading...</div>
+  if (!labels) return <div>Loading...</div>
 
   return (
     <div>
@@ -67,7 +48,7 @@ export function MultipleSelectCheckmarks({ handleChange }) {
           renderValue={selected => selected.join(', ')}
           MenuProps={MenuProps}
         >
-          {combinedArray.map(name => (
+          {labels.map(name => (
             <MenuItem key={name} value={name}>
               <Checkbox checked={personName.indexOf(name) > -1} />
               <ListItemText primary={name} />

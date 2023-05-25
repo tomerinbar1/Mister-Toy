@@ -12,10 +12,11 @@ export const toyService = {
   save,
   getEmptyToy,
   setSortBy,
+  getLabels,
+  getInventory,
 }
 
 function getToys(filterBy = {}) {
-  // console.log('filterBy', filterBy)
   return httpService.get(BASE_URL, filterBy).then(toys => {
     if (filterBy.name) {
       toys = toys.filter(toy =>
@@ -30,16 +31,10 @@ function getToys(filterBy = {}) {
     }
 
     if (filterBy.labels && filterBy.labels.length > 0) {
-      console.log('filterBy.labels', filterBy.labels);
-      toys = toys.filter(toy => {
-        // console.log('toy', toy);
-        return (
-          Array.isArray(toy.labels) &&
-          toy.labels.some(label => filterBy.labels.includes(label))
-        )
-      })
+      toys = toys.filter(toy =>
+        toy.labels.some(label => filterBy.labels.includes(label))
+      )
     }
-
     return toys
   })
 }
@@ -87,6 +82,36 @@ function getEmptyToy() {
     createdAt: Date.now(),
     inStock: true,
   }
+}
+
+const labels = [
+  'hero',
+  'Battery Powered',
+  'cowboy',
+  'Pull-String',
+  'cowgirl',
+  'dinosaur',
+]
+
+function getLabels() {
+  return labels
+}
+
+function getInventory() {
+  let inventory = [0, 0, 0, 0, 0, 0]
+  httpService.get(BASE_URL).then(toys => {
+    toys.forEach(toy => {
+      toy.labels.forEach(label => {
+        if (label === 'hero') inventory[0]++
+        else if (label === 'Battery Powered') inventory[1]++
+        else if (label === 'cowboy') inventory[2]++
+        else if (label === 'Pull-String') inventory[3]++
+        else if (label === 'cowgirl') inventory[4]++
+        else if (label === 'dinosaur') inventory[5]++
+      })
+    })
+  })
+  return inventory
 }
 
 // function getDefaultFilter() {

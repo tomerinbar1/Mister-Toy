@@ -17,7 +17,7 @@ const corsOptions = {
     credentials: true
 }
 app.use(cors(corsOptions))
-app.use(express.static('public'))
+// app.use(express.static('public'))
 app.use(cookieParser()) // for res.cookies
 app.use(express.json()) // for req.body
 

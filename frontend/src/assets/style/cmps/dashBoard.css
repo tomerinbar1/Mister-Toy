@@ -1,0 +1,15 @@
+.canvas-wrapper {
+  max-width: 80%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.canvas-wrapper h1 {
+  text-align: center;
+  font-size: 3rem;
+  margin: 2rem;
+}

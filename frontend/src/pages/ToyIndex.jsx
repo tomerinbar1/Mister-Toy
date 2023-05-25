@@ -10,7 +10,7 @@ import { ToyFilter } from '../cmps/ToyFilter'
 export const ToyIndex = () => {
   const toys = useSelector(storeState => storeState.toyModule.toys)
   const [filterBy, setFilterBy] = useState({ name: '', inStock: 'all', labels: [] })
-  const [sortBy, setSortBy] = useState('name') // name, price, createdAt
+  const [sortBy, setSortBy] = useState('name')
 
   useEffect(() => {
     loadToys(filterBy)
@@ -60,6 +60,7 @@ export const ToyIndex = () => {
         onSetFilter={onSetFilter}
         filterBy={filterBy}
         onSetSort={onSetSort}
+        sortBy={sortBy}
       />
       <ToyList toys={toys} onRemoveToy={onRemoveToy} onEditToy={onEditToy} />
     </div>

@@ -1,3 +1,10 @@
-.toy-filter > *{
-    margin-inline: 5px;
+.toy-filter > * {
+  display: flex;
+  align-items: center;
+  margin-inline: 5px;
+  padding: 0;
+}
+
+.toy-filter {
+  height: 60px;
 }

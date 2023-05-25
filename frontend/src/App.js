@@ -10,6 +10,7 @@ import { AppHeader } from './cmps/AppHeader'
 import { ToyDetails } from './pages/ToyDetails'
 import { ToyEdit } from './pages/ToyEdit'
 import { AppFooter } from './cmps/AppFooter'
+import { DashBoard } from './pages/DashBoard'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <Route element={<HomePage />} path="/" />
               <Route element={<AboutUs />} path="/about" />
               <Route element={<ToyIndex />} path="/toy" />
+              <Route element={<DashBoard />} path="/dashboard" />
               <Route element={<ToyDetails />} path="/toy/:toyId" />
               <Route element={<ToyEdit />} path="/toy/edit" />
               <Route element={<ToyEdit />} path="/toy/edit/:toyId" />
