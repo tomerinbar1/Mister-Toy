@@ -1,4 +1,4 @@
-import './assets/style/setup/main.css'
+import './assets/style/setup/style.scss'
 import { Provider } from 'react-redux'
 import { store } from './store/store'
 import { Route, HashRouter as Router, Routes } from 'react-router-dom'

@@ -1,15 +1,20 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { loadToys, removeToy,sortToyBy } from '../store/toyActions'
+import { loadToys, removeToy, sortToyBy } from '../store/toyActions'
 import { ToyList } from '../cmps/ToyList'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { saveToy } from '../store/toyActions'
 import { Link } from 'react-router-dom'
 import { ToyFilter } from '../cmps/ToyFilter'
+import Button from '@mui/material/Button'
 
 export const ToyIndex = () => {
   const toys = useSelector(storeState => storeState.toyModule.toys)
-  const [filterBy, setFilterBy] = useState({ name: '', inStock: 'all', labels: [] })
+  const [filterBy, setFilterBy] = useState({
+    name: '',
+    inStock: 'all',
+    labels: [],
+  })
   const [sortBy, setSortBy] = useState('name')
 
   useEffect(() => {
@@ -54,8 +59,9 @@ export const ToyIndex = () => {
 
   return (
     <div>
-      <h1>ToyIndex</h1>
-      <Link to="/toy/edit">Add Toy</Link>
+      <Button className='add-btn' variant="contained">
+        <Link to="/toy/edit">Add Toy</Link>
+      </Button>
       <ToyFilter
         onSetFilter={onSetFilter}
         filterBy={filterBy}

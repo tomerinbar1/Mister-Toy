@@ -1,9 +1,11 @@
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { saveToy } from '../store/toyActions.js'
 import { toyService } from '../services/toyService.js'
-import { Formik, Field, Form } from 'formik'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import Box from '@mui/material/Box'
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
 
 export function ToyEdit() {
   const [toyToEdit, setToyToEdit] = useState(toyService.getEmptyToy())
@@ -43,17 +45,21 @@ export function ToyEdit() {
 
   return (
     <section className="toy-edit-container">
-      <h2>Update Toy</h2>
-      <Formik
-        initialValues={{
-          Name: '',
-          Price: 0,
+          <Button variant="contained" onClick={() => navigate('/toy')}>
+            Back
+          </Button>
+      <Box
+        sx={{
+          '& .MuiTextField-root': { m: 1, width: '25ch' },
         }}
+        noValidate
+        autoComplete="off"
       >
-        <Form onSubmit={onSaveToy}>
+        <form onSubmit={onSaveToy}>
           <label htmlFor="name">Toy Name:</label>
-          <Field
-            id="name"
+          <TextField
+            label="Required"
+            id="outlined-required"
             name="name"
             onChange={handleChange}
             value={name}
@@ -61,19 +67,23 @@ export function ToyEdit() {
           />
 
           <label htmlFor="price"> Toy Price:</label>
-          <Field
-            id="price"
+          <TextField
+            abel="Number"
+            id="outlined-number"
             name="price"
+            type="number"
             onChange={handleChange}
             value={price}
             placeholder="Enter toy price"
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
-
-          <button type="submit">Save</button>
-        </Form>
-      </Formik>
-
-      <button onClick={() => navigate('/toy')}> Back </button>
+          <Button type="submit" variant="contained">
+            Save
+          </Button>
+        </form>
+      </Box>
     </section>
   )
 }

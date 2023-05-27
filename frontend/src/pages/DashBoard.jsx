@@ -8,6 +8,9 @@ ChartJS.register(ArcElement, Tooltip, Legend)
 export const DashBoard = () => {
   const labels = toyService.getLabels()
   const inventory = toyService.getInventory()
+
+  if (!labels || !inventory) return <div>Loading...</div>
+
   const data = {
     labels: labels,
     datasets: [
@@ -36,9 +39,9 @@ export const DashBoard = () => {
   }
   return (
     <>
-      <div className='canvas-wrapper'>
-      <h1>Inventory</h1>
-      <Doughnut data={data} />
+      <div className="canvas-wrapper">
+        <h1>Inventory</h1>
+        <Doughnut data={data} />
       </div>
     </>
   )
