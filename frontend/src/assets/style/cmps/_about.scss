@@ -1,4 +1,20 @@
-.our-store {
-  display: flex;
-  justify-content: space-evenly;
+.about-container {
+  .map {
+    height: 800px;
+    width: 100%;
+    margin-top: 200px;
+  }
+  @include mobile-only {
+    .map {
+      height: 400px;
+      margin-top: 75px;
+    }
+  }
+  .our-store {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  h1 {
+    margin-inline-start: 20px;
+  }
 }

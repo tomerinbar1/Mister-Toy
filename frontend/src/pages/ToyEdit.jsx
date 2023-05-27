@@ -45,9 +45,6 @@ export function ToyEdit() {
 
   return (
     <section className="toy-edit-container">
-          <Button variant="contained" onClick={() => navigate('/toy')}>
-            Back
-          </Button>
       <Box
         sx={{
           '& .MuiTextField-root': { m: 1, width: '25ch' },
@@ -79,9 +76,18 @@ export function ToyEdit() {
               shrink: true,
             }}
           />
-          <Button type="submit" variant="contained">
-            Save
-          </Button>
+          <div className="edit-btns">
+            <Button
+              className="back-btn"
+              variant="contained"
+              onClick={() => navigate('/toy')}
+            >
+              Back
+            </Button>
+            <Button type="submit" variant="contained">
+              Save
+            </Button>
+          </div>
         </form>
       </Box>
     </section>

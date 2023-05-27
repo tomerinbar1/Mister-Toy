@@ -35,8 +35,8 @@ export const ToyFilter = ({ onSetFilter, filterBy, onSetSort,sortBy }) => {
   }
   return (
     <form className="toy-filter flex justify-center">
-      <MultipleSelectCheckmarks handleChange={handleChange} />
       <div>
+      <MultipleSelectCheckmarks handleChange={handleChange} />
         <Box
           sx={{
             '& > :not(style)': { m: 1, width: '25ch' },

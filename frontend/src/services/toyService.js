@@ -78,6 +78,7 @@ function getEmptyToy() {
   return {
     name: '',
     price: 0,
+    imgURL: '',
     labels: [],
     createdAt: Date.now(),
     inStock: true,
@@ -113,62 +114,3 @@ function getInventory() {
   })
   return inventory
 }
-
-// function getDefaultFilter() {
-//   return {}
-// }
-
-// function _createToys() {
-//   const toys = [
-//     _createToy(
-//       'p101',
-//       'Buzz LightYear',
-//       'https://m.media-amazon.com/images/I/71rL5zB1UZL._AC_SL1500_.jpg',
-//       18.99,
-//       ['hero', 'Battery Powered'],
-//       1551133930594,
-//       true
-//     ),
-//     _createToy(
-//       'p102',
-//       'Woody',
-//       'https://m.media-amazon.com/images/I/61Akyuw5zIL._AC_SL1500_.jpg',
-//       15.99,
-//       ['cowboy', 'Pull-String'],
-//       1551133930595,
-//       true
-//     ),
-//     _createToy(
-//       'p103',
-//       'Jessie',
-//       'https://m.media-amazon.com/images/I/61rz0sdxEML._AC_SL1500_.jpg',
-//       17.99,
-//       ['cowgirl', 'Battery Powered'],
-//       1551133930596,
-//       false
-//     ),
-//     _createToy(
-//       'p104',
-//       'Rex',
-//       'https://m.media-amazon.com/images/I/61OIdq73gNL._AC_SL1200_.jpg',
-//       12.99,
-//       ['dinosaur', 'Battery Powered'],
-//       1551133930597,
-//       true
-//     ),
-//   ]
-//   storageService.save(STORAGE_KEY, toys)
-// }
-
-// function _createToy(_id, name, imgUrl, price, labels, createdAt, inStock) {
-//   const toy = {
-//     _id,
-//     name,
-//     imgUrl,
-//     price,
-//     labels,
-//     createdAt,
-//     inStock,
-//   }
-//   return toy
-// }

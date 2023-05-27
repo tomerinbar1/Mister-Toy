@@ -1,11 +1,11 @@
 .toy-filter > * {
-    display: flex;
-    align-items: center;
-    margin-inline: 5px;
-    padding: 0;
+  display: flex;
+  align-items: center;
+  margin-inline: 5px;
+  padding: 0;
+  @include mobile-only {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .toy-filter {
-    height: 60px;
-  }
-  
+}

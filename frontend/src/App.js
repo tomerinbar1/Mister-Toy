@@ -2,7 +2,6 @@ import './assets/style/setup/style.scss'
 import { Provider } from 'react-redux'
 import { store } from './store/store'
 import { Route, HashRouter as Router, Routes } from 'react-router-dom'
-
 import { HomePage } from './pages/HomePage'
 import { AboutUs } from './pages/AboutUs'
 import { ToyIndex } from './pages/ToyIndex'

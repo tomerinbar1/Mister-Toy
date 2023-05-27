@@ -26,10 +26,12 @@ export const AboutUs = () => {
   }
 
   return (
-    <>
-      <div style={{ height: '800px', width: '100%' }}>
+    <section className="about-container">
+      <div className="map">
         <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyC5npTxFk7UL7btXdc70lyEfjwH8Mhet5g' }}
+          bootstrapURLKeys={{
+            key: 'AIzaSyC5npTxFk7UL7btXdc70lyEfjwH8Mhet5g',
+          }}
           defaultCenter={defaultProps.center}
           defaultZoom={defaultProps.zoom}
           yesIWantToUseGoogleMapApiInternals
@@ -62,6 +64,6 @@ export const AboutUs = () => {
           </li>
         </ul>
       </div>
-    </>
+    </section>
   )
 }

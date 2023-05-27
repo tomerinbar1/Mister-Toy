@@ -1,11 +1,15 @@
-.app-footer{
-    display: flex;
-    position: absolute;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
+.app-footer {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+  height: 50px;
+  background-color: #f5f5f5;
+  border-top: 1px solid #e7e7e7;
+  @include mobile-only {
+    position: fixed;
     bottom: 0;
-    height: 50px;
-    background-color: #f5f5f5;
-    border-top: 1px solid #e7e7e7;
+  }
 }

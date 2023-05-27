@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import CloseIcon from '@mui/icons-material/Close';
+import alt from '../assets/img/default.jpg'
 
 
 export const ToyPreview = ({ toy, onRemoveToy }) => {
@@ -7,7 +8,7 @@ export const ToyPreview = ({ toy, onRemoveToy }) => {
     <article className="toy-preview">
       <button className='remove-button' onClick={() => onRemoveToy(toy._id)}><CloseIcon/></button>
       <h3>{toy.name}</h3>
-      <img src={toy.imgUrl} alt="" />
+      <img src={toy.imgUrl} alt={alt} />
       <h3>{toy.price}$</h3>
       <div className="preview-buttons">
         <Link to={`/toy/${toy._id}`}>Details</Link>

@@ -1,3 +1,7 @@
+//setup
+@import '../setup/mixin';
+@import '../setup/variables';
+
 // base
 @import '../base/base';
 @import '../base/helpers';
@@ -12,4 +16,4 @@
 @import '../cmps/toyPreview';
 @import '../cmps/about';
 @import '../cmps/home';
-@import '../cmps/toyIndex'
+@import '../cmps/toyIndex';
