@@ -1,122 +1,55 @@
 const express = require('express')
-const app = express()
-const toyService = require('./services/toy.service')
 const cookieParser = require('cookie-parser')
-const path = require('path')
 const cors = require('cors')
+const path = require('path')
 
-// App Configuration
-const corsOptions = {
-  origin: [
-    'http://127.0.0.1:8080',
-    'http://localhost:8080',
-    'http://127.0.0.1:3000',
-    'http://localhost:3000',
-  ],
-  credentials: true,
-}
-app.use(cors(corsOptions))
-// app.use(express.static('public'))
-app.use(cookieParser()) // for res.cookies
-app.use(express.json()) // for req.body
+const logger = require('./services/logger.service')
 
-// List
-app.get('/api/toy', (req, res) => {
-  const filterBy = req.query
-  toyService
-    .query(filterBy)
-    .then(toys => {
-      res.send(toys)
-    })
-    .catch(err => {
-      console.log('Cannot load toys')
-      res.status(400).send('Cannot load toys')
-    })
-})
+const app = express()
+const http = require('http').createServer(app)
 
-// Add
-app.post('/api/toy', (req, res) => {
-  const { name, inStock, price } = req.body
+// Express App Config:
 
-  const toy = {
-    name,
-    price: +price,
-    inStock,
-    createdAt: Date.now(),
-  }
-  toyService
-    .save(toy)
-    .then(savedToy => {
-      res.send(savedToy)
-    })
-    .catch(err => {
-      console.log('Cannot add toy')
-      res.status(400).send('Cannot add toy')
-    })
-})
-
-// Edit
-app.put('/api/toy', (req, res) => {
-  const { name, price, _id, imgUrl, inStock, createdAt } = req.body
-  const toy = {
-    _id,
-    name,
-    imgUrl,
-    inStock,
-    price: +price,
-    createdAt,
-  }
-  toyService
-    .save(toy)
-    .then(savedToy => {
-      res.send(savedToy)
-    })
-    .catch(err => {
-      console.log('Cannot update toy')
-      res.status(400).send('Cannot update toy')
-    })
-})
-
-// Read - getById
-app.get('/api/toy/:toyId', (req, res) => {
-  const { toyId } = req.params
-  toyService
-    .get(toyId)
-    .then(toy => res.send(toy))
-    .catch(err => res.status(403).send(err))
-})
-
-// Remove
-app.delete('/api/toy/:toyId', (req, res) => {
-  const { toyId } = req.params
-  toyService
-    .remove(toyId)
-    .then(msg => {
-      res.send({ msg, toyId })
-    })
-    .catch(err => {
-      console.log('err:', err)
-      res.status(400).send('Cannot remove toy, ' + err)
-    })
-})
+app.use(cookieParser())
+app.use(express.json())
+app.use(express.static('public'))
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.resolve(__dirname, 'public')))
+    // Express serve static files on production environment
+    app.use(express.static(path.resolve(__dirname, 'public')))
 } else {
-  const corsOptions = {
-    origin: ['http://127.0.0.1:3000', 'http://localhost:3000'],
-    credentials: true,
-  }
-  app.use(cors(corsOptions))
+    // Configuring CORS
+    const corsOptions = {
+        // Make sure origin contains the url your frontend is running on
+        origin: ['http://127.0.0.1:5173', 'http://localhost:5173','http://127.0.0.1:3000', 'http://localhost:3000'],
+        credentials: true
+    }
+    app.use(cors(corsOptions))
 }
 
-const port = process.env.PORT || 3030
+// Our server's routes (end points) - grouped by feature:
+
+const authRoutes = require('./api/auth/auth.routes')
+app.use('/api/auth', authRoutes)
+
+const userRoutes = require('./api/user/user.routes')
+app.use('/api/user', userRoutes)
+
+const carRoutes = require('./api/car/car.routes')
+app.use('/api/car', carRoutes)
+
+// Create a fallback route:
+// Make every request for which there is no end point match the index.html
+// so when requesting http://localhost:3030/index.html/car/123 
+// it will still respond withour SPA (single page app - the index.html file) 
+// and allow the frontend router to take it from there
+
 app.get('/**', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'))
-})
-app.listen(port, () => {
-  console.log(`App listening on port ${port}!`)
+    res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 
-// Listen will always be the last line in our server!
-// app.listen(3030, () => console.log('Server listening on port 3030!'))
+const port = process.env.PORT || 3030
+
+http.listen(port, () => {
+    logger.info('Server is running on port: ' + port)
+})

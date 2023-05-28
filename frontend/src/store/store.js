@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
   // userModule: userReducer,
 })
 
-const middleware = window?._REDUX_DEVTOOLS_EXTENSION_?.()
+const middleware = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__()
 export const store = createStore(rootReducer, middleware)
 
 // For debug
