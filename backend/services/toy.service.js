@@ -1,9 +1,40 @@
 const fs = require('fs')
 var toys = require('../data/toy.json')
 
-async function query(filterBy = {}) {
+function query(filterBy = {}) {
   let toysToDisplay = toys
-  return toysToDisplay
+
+  const { name, price, createdAt, labels, inStock } = filterBy
+
+  if (name) {
+    toysToDisplay = toysToDisplay.filter(toy =>
+      toy.name.toLowerCase().includes(name.toLowerCase())
+    )
+  }
+
+  if (price) {
+    const numericPrice = Number(price)
+    toysToDisplay = toysToDisplay.filter(toy => toy.price <= numericPrice)
+  }
+
+  if (createdAt) {
+    toysToDisplay = toysToDisplay.filter(toy => toy.createdAt <= createdAt)
+  }
+
+  if (toysToDisplay && labels && Array.isArray(labels) && labels.length) {
+    const lowercaseLabels = labels.map(label => label.toLowerCase())
+    toysToDisplay = toysToDisplay.filter(
+      toy =>
+        toy.labels &&
+        toy.labels.some(label => lowercaseLabels.includes(label.toLowerCase()))
+    )
+  }
+
+  if (inStock === 'true') {
+    toysToDisplay = toysToDisplay.filter(toy => toy.inStock === true)
+  }
+
+  return Promise.resolve(toysToDisplay)
 }
 
 function get(toyId) {
