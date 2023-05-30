@@ -27,13 +27,6 @@ function getToys(filterBy = getDefaultFilter(), sortBy = getDefaultSort()) {
   return httpService.get(BASE_URL + queryParams)
 }
 
-blabla()
-
-async function blabla() {
-  const blo = await httpService.get('bla')
-  console.log(blo)
-}
-
 function getDefaultFilter() {
   return {
     name: '',

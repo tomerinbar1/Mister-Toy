@@ -40,6 +40,7 @@ export function MobileMenu() {
           { text: 'Home', path: '/' },
           { text: 'Toy', path: '/toy' },
           { text: 'Dashboard', path: '/dashboard' },
+          { text: 'Login', path: '/login'},
           { text: 'About', path: '/about' }
         ].map((item, index) => (
           <ListItem key={item.text} disablePadding>

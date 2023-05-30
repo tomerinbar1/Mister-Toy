@@ -26,6 +26,7 @@ export function toyReducer(state = initialState, action) {
       toys = state.toys.map(toy =>
         toy._id === action.toy._id ? action.toy : toy
       )
+      return { ...state, toys }
     case SET_IS_LOADING:
       return { ...state, isLoading: action.isLoading }
     case SET_FILTER:
