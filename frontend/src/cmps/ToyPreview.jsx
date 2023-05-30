@@ -8,7 +8,7 @@ export const ToyPreview = ({ toy, onRemoveToy }) => {
     <article className="toy-preview">
       <button className='remove-button' onClick={() => onRemoveToy(toy._id)}><CloseIcon/></button>
       <h3>{toy.name}</h3>
-      <img src={toy.imgUrl} alt={alt} />
+      <img src={`https://robohash.org/set_set1/bgset_bg1/%60$%7B${toy._id}%7D%60?size=500x500`} alt={alt} />
       <h3>{toy.price}$</h3>
       <div className="preview-buttons">
         <Link to={`/toy/${toy._id}`}>Details</Link>

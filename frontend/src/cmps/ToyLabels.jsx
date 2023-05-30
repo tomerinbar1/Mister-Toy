@@ -19,7 +19,7 @@ const MenuProps = {
   },
 }
 
-export function MultipleSelectCheckmarks({ handleChange }) {
+export function MultipleSelectCheckmarks({ handleSelectChange }) {
   const [personName, setPersonName] = useState([])
 
   const labels = toyService.getLabels()
@@ -29,7 +29,7 @@ export function MultipleSelectCheckmarks({ handleChange }) {
       target: { value },
     } = event
     setPersonName(value)
-    handleChange(event)
+    handleSelectChange(event.target)
   }
 
   if (!labels) return <div>Loading...</div>

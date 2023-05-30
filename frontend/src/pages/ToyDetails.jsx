@@ -28,7 +28,6 @@ export const ToyDetails = () => {
     <div>
       <h1>ToyDetails</h1>
       <h2>{toy.name}</h2>
-      {/* <img src={toy.imgUrl} alt="" /> */}
       <p>{toy.price}</p>
       <p>{toy.inStock}</p>
       <Link to={'/toy'}>Return</Link>
